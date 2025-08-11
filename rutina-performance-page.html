@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rutina / IA performance - Aissa Santiso</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #000;
+        color: #00ff00;
+        font-family: "Courier Prime", monospace;
+        line-height: 1.4;
+        overflow-x: auto;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(90deg, #00ff00, #00cc00);
+        color: #000;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        margin-bottom: 40px;
+        border: 2px solid #00ff00;
+      }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      /* Schedule Section */
+      .schedule-title {
+        color: #00ff00;
+        font-size: 18px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .schedule-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+        font-size: 12px;
+      }
+
+      .schedule-table th,
+      .schedule-table td {
+        border: 1px solid #ffffff;
+        padding: 8px 4px;
+        text-align: center;
+        vertical-align: top;
+      }
+
+      .schedule-table th {
+        background-color: #003300;
+        color: #00ff00;
+        font-weight: bold;
+      }
+
+      .schedule-table td {
+        background-color: #001100;
+        height: 40px;
+      }
+
+      .time-column {
+        background-color: #002200 !important;
+        font-weight: bold;
+        width: 80px;
+      }
+
+      .activity {
+        font-size: 10px;
+        word-wrap: break-word;
+      }
+
+      /* Matrix Text Effect */
+      .matrix-text {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 40px 0;
+      }
+
+      .matrix-column-container {
+        font-family: "Courier Prime", monospace;
+        color: #00ff00;
+        font-size: 12px;
+        line-height: 1.6;
+        overflow: hidden;
+        background-color: #000000; /* Cambiado de #001100 a negro sólido */
+        padding: 0;
+        border: 1px solid rgba(0, 255, 0, 0.1);
+        height: 400px;
+        position: relative;
+      }
+
+      .matrix-column {
+        position: absolute;
+        padding: 20px;
+        width: 100%;
+        animation: scrollText 60s linear infinite;
+      }
+
+      @keyframes scrollText {
+        0% {
+          top: 100%;
+        }
+        100% {
+          top: -100%;
+        }
+      }
+
+      /* Video Performance Section */
+      .performance-section {
+        margin: 40px 0;
+      }
+
+      .performance-title {
+        color: #00ff00;
+        font-size: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .video-container {
+        background: #000000;
+        border: 1px solid rgba(0, 255, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .video-placeholder {
+        width: 100%;
+        max-width: 600px;
+        height: 400px;
+       background: linear-gradient(45deg, #001100, #003300);
+        border: 1px solid #00ff00;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        position: relative;
+      }
+
+      .video-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #00ff00;
+        font-size: 18px;
+      }
+
+      .nft-info {
+        margin-top: 20px;
+        color: #00ff00;
+      }
+
+      .nft-details {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        padding-left: 20px;
+      }
+
+      .nft-field {
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(90deg, #00ff00, #00cc00);
+        color: #000;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+        border: 2px solid #00ff00;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 10px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .schedule-table {
+          font-size: 10px;
+        }
+
+        .schedule-table th,
+        .schedule-table td {
+          padding: 4px 2px;
+        }
+
+        .matrix-text {
+          grid-template-columns: 1fr;
+          font-size: 8px;
+        }
+
+        .header {
+          flex-direction: column;
+          gap: 10px;
+        }
+      }
+
+      /* Animation Effects */
+      .glitch {
+        animation: glitch 2s infinite;
+      }
+
+      @keyframes glitch {
+        0%,
+        100% {
+          transform: translate(0);
+        }
+        10% {
+          transform: translate(-2px, 2px);
+        }
+        20% {
+          transform: translate(2px, -2px);
+        }
+        30% {
+          transform: translate(-2px, -2px);
+        }
+        40% {
+          transform: translate(2px, 2px);
+        }
+        50% {
+          transform: translate(-2px, 2px);
+        }
+        60% {
+          transform: translate(2px, -2px);
+        }
+        70% {
+          transform: translate(-2px, -2px);
+        }
+        80% {
+          transform: translate(2px, 2px);
+        }
+        90% {
+          transform: translate(-2px, 2px);
+        }
+      }
+
+      .blink {
+        animation: blink 1s infinite;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* Tracking Effect */
+      .tracking-layer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      }
+
+      .tracking-line {
+        position: absolute;
+        background: rgba(0, 255, 0, 0.664);
+        transition: all 0.2s ease;
+      }
+
+      .tracking-number {
+        position: absolute;
+        color: #ffffff;
+        font-family: "Courier Prime", monospace;
+        font-size: 10px;
+        opacity: 0.5;
+      }
+
+      .horizontal-line {
+        height: 1px;
+        width: 100%;
+      }
+
+      .vertical-line {
+        width: 1px;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <span>Rutina / IA performance</span>
+        </div>
+        <div class="header-right">
+          <span>Aissa Santiso</span>
+        </div>
+      </header>
+
+      <!-- Schedule Section -->
+      <section class="schedule-section">
+        <h2 class="schedule-title">
+          Planificación Semanal por ChatGPT<br />
+          Weekly schedule by ChatGPT
+        </h2>
+
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Hora</th>
+              <th>Lunes</th>
+              <th>Martes</th>
+              <th>Miércoles</th>
+              <th>Jueves</th>
+              <th>Viernes</th>
+              <th>Sábado</th>
+              <th>Domingo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="time-column">08:00-09:00</td>
+              <td class="activity">Despertar + meditación</td>
+              <td class="activity">Yoga + café italiano</td>
+              <td class="activity">Despertar + rutina</td>
+              <td class="activity">Despertar + yoga</td>
+              <td class="activity">Despertar + rutina</td>
+              <td class="activity">Despertar tranquilo</td>
+              <td class="activity">Lento despertar natural</td>
+            </tr>
+            <tr>
+              <td class="time-column">09:00-10:00</td>
+              <td class="activity">Desayuno + noticias</td>
+              <td class="activity">Lavandería + organización</td>
+              <td class="activity">Limpieza profunda</td>
+              <td class="activity">Limpieza rápida</td>
+              <td class="activity">Lavado de coches</td>
+              <td class="activity">Limpieza profunda interior</td>
+              <td class="activity">Paseo + desayuno</td>
+            </tr>
+            <tr>
+              <td class="time-column">10:00-11:00</td>
+              <td class="activity">Gestión administrativa</td>
+              <td class="activity">Planificación creativa</td>
+              <td class="activity">Limpieza exterior</td>
+              <td class="activity">Organización general</td>
+              <td class="activity">Carro + interior</td>
+              <td class="activity">Mercado o recados</td>
+              <td class="activity">Organización semanal</td>
+            </tr>
+            <tr>
+              <td class="time-column">11:00-12:00</td>
+              <td class="activity">Trabajo productivo</td>
+              <td class="activity">Trabajo creativo</td>
+              <td class="activity">Trabajo productivo</td>
+              <td class="activity">Trabajo personal</td>
+              <td class="activity">Trabajo administrativo</td>
+              <td class="activity">Actividades personales</td>
+              <td class="activity">Actividades reflexivas</td>
+            </tr>
+            <tr>
+              <td class="time-column">13:00-14:00</td>
+              <td class="activity">Preparar comida</td>
+              <td class="activity">Preparar almuerzo</td>
+              <td class="activity">Preparar comida</td>
+              <td class="activity">Preparar almuerzo</td>
+              <td class="activity">Preparar comida</td>
+              <td class="activity">Cocinar en conjunto</td>
+              <td class="activity">Cocinar algo especial</td>
+            </tr>
+            <tr>
+              <td class="time-column">14:00-15:00</td>
+              <td class="activity">Comida + relajación</td>
+              <td class="activity">Comida + relajación</td>
+              <td class="activity">Comida + relajación</td>
+              <td class="activity">Comida + relajación</td>
+              <td class="activity">Comida + relajación</td>
+              <td class="activity">Comida + sobremesa</td>
+              <td class="activity">Comida + familia</td>
+            </tr>
+            <tr>
+              <td class="time-column">15:00-16:00</td>
+              <td class="activity">Descanso / siesta</td>
+              <td class="activity">Descanso / lectura</td>
+              <td class="activity">Descanso / música</td>
+              <td class="activity">Descanso / podcast</td>
+              <td class="activity">Descanso / paseo</td>
+              <td class="activity">Siesta o paseo</td>
+              <td class="activity">Siesta o paseo</td>
+            </tr>
+            <tr>
+              <td class="time-column">16:00-17:00</td>
+              <td class="activity">Documentos o revisión</td>
+              <td class="activity">Revisión archivos</td>
+              <td class="activity">Orden digital</td>
+              <td class="activity">Limpieza electrónica</td>
+              <td class="activity">Curso en casa</td>
+              <td class="activity">Actividad creativa</td>
+              <td class="activity">Actividad creativa</td>
+            </tr>
+            <tr>
+              <td class="time-column">18:00-19:00</td>
+              <td class="activity">Merienda ligera</td>
+              <td class="activity">Merienda ligera</td>
+              <td class="activity">Merienda ligera</td>
+              <td class="activity">Merienda ligera</td>
+              <td class="activity">Merienda ligera</td>
+              <td class="activity">Merienda especial</td>
+              <td class="activity">Merienda especial</td>
+            </tr>
+            <tr>
+              <td class="time-column">19:00-20:00</td>
+              <td class="activity">Ejercicio + cardio</td>
+              <td class="activity">Paseo corto</td>
+              <td class="activity">Estiramiento + fitness</td>
+              <td class="activity">Rutina de ejercicios</td>
+              <td class="activity">Estiramiento + cardio</td>
+              <td class="activity">Actividad en pareja</td>
+              <td class="activity">Juego largo o lectura</td>
+            </tr>
+            <tr>
+              <td class="time-column">20:00-21:00</td>
+              <td class="activity">Cena ligera</td>
+              <td class="activity">Cena ligera</td>
+              <td class="activity">Cena ligera</td>
+              <td class="activity">Cena ligera</td>
+              <td class="activity">Cena con relax + té</td>
+              <td class="activity">Cena con velas o relax</td>
+              <td class="activity">Cena informal</td>
+            </tr>
+            <tr>
+              <td class="time-column">21:00-22:00</td>
+              <td class="activity">Música + relajación</td>
+              <td class="activity">Serie + autocuidado</td>
+              <td class="activity">Ducha + autocuidado</td>
+              <td class="activity">Meditación + cine o series</td>
+              <td class="activity">Relajar cuidados</td>
+              <td class="activity">Prepararse para dormir</td>
+              <td class="activity">Prepararse para la semana</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Matrix Text Section -->
+      <section class="matrix-text">
+        <div class="matrix-column-container">
+          <div class="matrix-column">
+            <p style="margin: 0; padding: 20px">
+              Rutina dialoga acerca de los sesgos de género presentes en las
+              respuestas automáticas de la IA sin iteración, reforzando la
+              naturalización de los mismos en todos los aspectos de la vida
+              cotidiana. Para ello se llevó a cabo la acción performativa-
+              Rutina-, la cual consistió en ordenarle a una de las IAs más
+              utilizadas en estos momentos – ChatGPT- la realización de un
+              calendario semanal, para luego realizar una performance siguiendo
+              las actividades programadas en dicho calendario. Método: Para la
+              realización del prompt, se obvió cualquier información adicional
+              que indicara características de su usuarix como: nombre y
+              apellidos, género, edad, lugar de residencia, estudios, trabajo,
+              preferencias de actividades, etc. También se procedió a utilizar
+              una cuenta anónima para el logado en la IA de chatGPT, con lo cual
+              no le fuera posible establecer una identificación directa sobre la
+              información antes mencionada a través de el historial digital
+              personal a través de los bots de Google y la IA. en El prompt solo
+              decía "hazme una planificación semanal de mis actividades
+              cotidianas". Bajo estas condiciones, la IA no solo fué capaz de
+              identificar el género, sino también la locación de residencia para
+              establecer los horarios de determinadas actividades, por ejemplo
+              las comidas y las cenas en España suelen ser un poco más tarde en
+              comparación con el resto de países. El video performance reproduce
+              una selección de actividades contempladas en un día cualquiera de
+              la semana, según la programación establecida por el calendario
+              semanal de la IA. En el video se aplica un efecto de tracking
+              (seguimiento) de todos los movimiento de los objetos/personas
+              representadas en el video con el tal de sugerir un estado de
+              vigilancia o de telepresencia. Conclusión: Dicho experimento no
+              solo confirma la presencia de sesgos de género evidentes que
+              relegan al tiempo de la mujer a ser ocupado al trabajo doméstico
+              en su totalidad (condición refutada por la teoría feminista desde
+              la Ilustración hasta nuestros días, como estrategias de
+              dominación). Sino que también, la propia exposición de los datos
+              facilitados por los motores de búsqueda de la IA y su
+              entrenamiento, profundiza la vulnerabilidad de los derechos que
+              tienen los usuarixs sobre su privacidad digital. Cambiar las
+              tecnologías implica también cambiar hábitos y formas de actuar, de
+              lo contrario solo recreamos un espacio abierto para ser ocupado
+              por otros manipulando no solo tu tiempo sino también todas las
+              actividades, fuertes y banales, de la cotidianidad.
+            </p>
+          </div>
+        </div>
+
+        <div class="matrix-column-container">
+          <div class="matrix-column">
+            <p style="margin: 0; padding: 20px">
+              Rutina dialogues about the gender biases present in the automatic
+              responses of AI without iteration, reinforcing their
+              naturalization in all aspects of daily life. For this it was
+              carried out the performative action- Routine-, which consisted in
+              ordering one of the most used IAs at these times - ChatGPT- the
+              realization of a weekly calendar, and then perform a performance
+              following the activities scheduled in that calendar. Method: For
+              the completion of the prompt, any additional information that
+              indicated characteristics of your usuarix as: name and surname,
+              gender, age, place of residence, studies, work, activity
+              preferences, etc. It was also proceeded to use an anonymous
+              account for the logon in the IA of chatGPT, with which it was not
+              possible to establish a direct identification on the
+              above-mentioned information through the personal digital history
+              through the Google bots and the IA. The prompt just said "make me
+              a weekly planning of my daily activities". Under these conditions,
+              the AI was not only able to identify gender, but also the location
+              of residence to set the times of certain activities, for example
+              lunches and dinners in Spain are usually a little later than in
+              other countries. The video performance reproduces a selection of
+              activities contemplated on any day of the week, according to the
+              schedule set by the weekly calendar of the AI. In the video, a
+              tracking effect (tracking) is applied to all the movement of the
+              objects/people depicted in the video, suggesting a state of
+              surveillance or telepresence. Conclusion: This experiment not only
+              confirms the presence of obvious gender biases that relegate
+              women's time to being occupied with domestic work in its entirety
+              (a condition refuted by feminist theory from the Enlightenment
+              until today, as strategies of domination). But also, the very
+              exposure of data provided by AI search engines and their training,
+              deepens users' vulnerability to digital privacy rights. Changing
+              technologies also means changing habits and ways of acting,
+              otherwise we just recreate an open space to be occupied by others
+              manipulating not only your time but also all the activities,
+              strong and banal, of everyday life.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Video Performance Section -->
+      <section class="performance-section">
+        <h2 class="performance-title">Video performance + NFT</h2>
+
+        <div class="video-container">
+          <div class="video-placeholder">
+            <iframe
+              src="https://assets.objkt.media/file/assets-003/bafybeifked64gd3d45jpsrmfimsaym6i5iow5tyzs2f74jpnhqn2ufri4q/artifact"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="nft-info">
+            <div class="nft-details">
+              <div class="nft-field">
+                <span>Token ID:</span>
+                <span><a
+                    href="https://objkt.com/tokens/open_objkt/12200"
+                    target="_blank"
+                    style="color: #ffffff; text-decoration: none"
+                    >12200</a
+                  ></span>
+              </div>
+              <div class="nft-field">
+                <span>Contract address:</span>
+                <span><a
+                    href="https://tzkt.io/KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E/operations/"
+                    target="_blank"
+                    style="color: #ffffff; text-decoration: none"
+                    >KT1XaCf6gkjFnKg3QmPfn6gep53moMvjkj1E</a    
+                  ></span>
+              </div>
+              <div class="nft-field">
+                <span>Creator:</span>
+                <span
+                  ><a
+                    href="https://objkt.com/users/tz1Zym1u1MZeeLVthoDmpExETXwpi9mU2ujr"
+                    target="_blank"
+                    style="color: #ffffff; text-decoration: none"
+                    >Aissa</a
+                  ></span
+                >
+              </div>
+              <div class="nft-field">
+                <span>Metadata:</span>
+                <span></span><a
+                    href="https://ipfs.io/ipfs/QmUP2T8EsjHJ3gEgp342JXYaUpn5Y9vGsbktG1Ak2CwXAh"
+                    target="_blank"
+                    style="color: #ffffff; text-decoration: none"
+                    >QmUP2T8EsjHJ3gEgp342JXYaUpn5Y9vGsbktG1Ak2CwXAh</a></span>
+              </div>
+              <div class="nft-field">
+                <span
+                  ><a
+                    href="https://objkt.com/tokens/open_objkt/12200"
+                    target="_blank"
+                    style="color: #00ff00; text-decoration: none"
+                    >Objkt</a
+                  ></span
+                >
+              </div>
+              <div class="nft-field">
+                <span
+                  >
+                Minted on Aug 11, 2025, 10:41:08 PM
+                 </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="social-icons">
+          <span><a
+                    href="https://x.com/santiso_aissa"
+                    target="_blank"
+                    style="color: #000000; text-decoration: none"
+                    >X</a
+                  ></span>
+          <span><a
+                    href="https://www.instagram.com/aissasantiso/"
+                    target="_blank"
+                    style="color: #000000; text-decoration: none"
+                    >IG</a
+                  ></span>
+          <span><a
+                    href="https://aissasantiso.com/"
+                    target="_blank"
+                    style="color: #000000; text-decoration: none"
+                    >💻</a
+                  ></span>
+        </div>
+        <div class="rights">
+          <span>@ all rights reserved</span>
+        </div>
+      </footer>
+    </div>
+
+    <div class="tracking-layer" id="trackingLayer"></div>
+
+    <script>
+      // Initialize effects when page loads
+      window.addEventListener("load", () => {
+        // Add random glitch effects
+        setInterval(() => {
+          const elements = document.querySelectorAll(".schedule-table td");
+          const randomElement =
+            elements[Math.floor(Math.random() * elements.length)];
+          randomElement.classList.add("glitch");
+          setTimeout(() => {
+            randomElement.classList.remove("glitch");
+          }, 500);
+        }, 5000);
+      });
+
+      // Video placeholder interaction
+      document
+        .querySelector(".video-placeholder")
+        .addEventListener("click", () => {
+          const overlay = document.querySelector(".video-overlay");
+          overlay.textContent =
+            overlay.textContent === "▶ PERFORMANCE LOADING..."
+              ? "⏸ PERFORMANCE PAUSED"
+              : "▶ PERFORMANCE LOADING...";
+        });
+
+      // Tracking effect
+      const trackingLayer = document.getElementById('trackingLayer');
+      let timeout;
+
+      function createTrackingEffect(e) {
+        clearTimeout(timeout);
+        trackingLayer.innerHTML = '';
+
+        // Crear líneas horizontales y verticales
+        const horizontal = document.createElement('div');
+        horizontal.className = 'tracking-line horizontal-line';
+        horizontal.style.top = e.clientY + 'px';
+
+        const vertical = document.createElement('div');
+        vertical.className = 'tracking-line vertical-line';
+        vertical.style.left = e.clientX + 'px';
+
+        // Agregar coordenadas
+        const coords = document.createElement('div');
+        coords.className = 'tracking-number';
+        coords.style.top = (e.clientY - 20) + 'px';
+        coords.style.left = (e.clientX + 10) + 'px';
+        coords.textContent = `X:${e.clientX} Y:${e.clientY}`;
+
+        // Agregar números aleatorios
+        for(let i = 0; i < 5; i++) {
+          const num = document.createElement('div');
+          num.className = 'tracking-number';
+          num.style.top = (e.clientY + (Math.random() * 100 - 50)) + 'px';
+          num.style.left = (e.clientX + (Math.random() * 100 - 50)) + 'px';
+          num.textContent = Math.floor(Math.random() * 999);
+          trackingLayer.appendChild(num);
+        }
+
+        trackingLayer.appendChild(horizontal);
+        trackingLayer.appendChild(vertical);
+        trackingLayer.appendChild(coords);
+
+        // Limpiar después de un momento
+        timeout = setTimeout(() => {
+          trackingLayer.innerHTML = '';
+        }, 1000);
+      }
+
+      document.addEventListener('mousemove', createTrackingEffect);
+    </script>
+  </body>
+</html>
