@@ -47,6 +47,14 @@
       }
 
       /* Schedule Section */
+      .schedule-section {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 40px;
+        padding-bottom: 15px; /* Espacio para la barra de scroll */
+      }
+
       .schedule-title {
         color: #00ff00;
         font-size: 18px;
@@ -56,11 +64,10 @@
 
       .schedule-table {
         width: 100%;
+        min-width: 800px; /* Ancho mínimo para asegurar legibilidad */
         border-collapse: collapse;
-        margin-bottom: 40px;
         font-size: 12px;
-        min-width: 800px; /* Asegura un mínimo ancho para tablas pequeñas */
-        max-width: 100%;
+        margin: 0; /* Removemos margins que puedan causar problemas */
       }
 
       .schedule-table th,
@@ -221,6 +228,12 @@
       @media (max-width: 768px) {
         .container {
           padding: 10px;
+        }
+
+        .schedule-section {
+          margin: 0 -20px; /* Compensar el padding del contenedor */
+          padding: 0 20px; /* Agregar padding horizontal */
+          width: calc(100% + 40px); /* Ajustar el ancho total */
         }
 
         .schedule-table {
@@ -795,3 +808,4 @@
     </script>
   </body>
 </html>
+
