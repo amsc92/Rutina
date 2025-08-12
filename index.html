@@ -121,19 +121,25 @@
         position: relative;
       }
 
-      .matrix-column {
+       .matrix-column {
         position: absolute;
         padding: 20px;
         width: 100%;
-        animation: scrollText 60s linear infinite;
+        animation: scrollText 120s linear infinite; /* Aumentado de 60s a 120s */
       }
 
       @keyframes scrollText {
         0% {
           top: 100%;
         }
+        5% { /* Añadimos una pausa al inicio */
+          top: 100%;
+        }
+        95% { /* Añadimos una pausa al final */
+          top: -200%;
+        }
         100% {
-          top: -100%;
+          top: -200%; /* Ajustado de -100% a -200% para asegurar que todo el texto pase */
         }
       }
 
