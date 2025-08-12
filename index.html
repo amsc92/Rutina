@@ -59,6 +59,8 @@
         border-collapse: collapse;
         margin-bottom: 40px;
         font-size: 12px;
+        min-width: 800px; /* Asegura un mínimo ancho para tablas pequeñas */
+        max-width: 100%;
       }
 
       .schedule-table th,
@@ -187,6 +189,15 @@
         display: flex;
         justify-content: flex-start;
         gap: 10px;
+        word-break: break-all;
+        overflow-wrap: break-word;
+      }
+
+      .nft-field a {
+        display: inline-block;
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
       }
 
       /* Footer */
@@ -208,6 +219,10 @@
 
       /* Responsive */
       @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
         .schedule-table {
           font-size: 10px;
         }
@@ -219,12 +234,47 @@
 
         .matrix-text {
           grid-template-columns: 1fr;
-          font-size: 8px;
+        }
+
+        .matrix-column-container {
+          height: 300px;
         }
 
         .header {
           flex-direction: column;
           gap: 10px;
+        }
+
+        .schedule-title {
+          font-size: 16px;
+        }
+
+        .video-placeholder {
+          height: 300px;
+        }
+
+        .nft-details {
+          font-size: 12px;
+        }
+
+        .nft-field {
+          flex-direction: column;
+          gap: 5px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header {
+          padding: 5px 10px;
+          font-size: 14px;
+        }
+
+        .matrix-column-container {
+          height: 250px;
+        }
+
+        .video-placeholder {
+          height: 200px;
         }
       }
 
