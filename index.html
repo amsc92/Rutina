@@ -117,7 +117,7 @@
         background-color: #000000; /* Cambiado de #001100 a negro sólido */
         padding: 0;
         border: 1px solid rgba(0, 255, 0, 0.1);
-        height: 400px;
+        height: 500px; /* Increased base height */
         position: relative;
       }
 
@@ -125,21 +125,22 @@
         position: absolute;
         padding: 20px;
         width: 100%;
-        animation: scrollText 240s linear infinite; /* Aumentado a 180s para más tiempo */
+        animation: scrollText 700s cubic-bezier(0.1, 0, 0.1, 1) infinite;
+        will-change: transform;
       }
 
       @keyframes scrollText {
         0% {
-          top: 100%;
+          transform: translateY(20%);
         }
-        5% {
-          top: 100%;
+        2% {
+          transform: translateY(18%);
         }
-        90% { /* Ajustado para dar más tiempo de lectura */
-          top: -300%;
+        98% {
+          transform: translateY(-200%);
         }
         100% {
-          top: -300%;
+          transform: translateY(-200%);
         }
       }
 
@@ -256,7 +257,11 @@
         }
 
         .matrix-column-container {
-          height: 400px; /* Mantenemos la altura original incluso en móviles */
+          height: 600px; /* Taller on mobile */
+        }
+
+        .matrix-column {
+          animation: scrollText 900s cubic-bezier(0.1, 0, 0.1, 1) infinite;
         }
 
         .header {
@@ -280,6 +285,10 @@
           flex-direction: column;
           gap: 5px;
         }
+
+        .matrix-column {
+          animation: scrollText 900s cubic-bezier(0.1, 0, 0.1, 1) infinite; /* Much longer time for mobile */
+        }
       }
 
       @media (max-width: 480px) {
@@ -289,11 +298,15 @@
         }
 
         .matrix-column-container {
-          height: 400px; /* Mantenemos la altura para mejor lectura */
+          height: 700px; /* Even taller on small screens */
         }
 
         .video-placeholder {
           height: 200px;
+        }
+
+        .matrix-column {
+          animation: scrollText 1100s cubic-bezier(0.1, 0, 0.1, 1) infinite;
         }
       }
 
@@ -762,5 +775,9 @@
 
       document.addEventListener('mousemove', createTrackingEffect);
     </script>
+  </body>
+</html>
+
+
   </body>
 </html>
