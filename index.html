@@ -121,25 +121,25 @@
         position: relative;
       }
 
-       .matrix-column {
+      .matrix-column {
         position: absolute;
         padding: 20px;
         width: 100%;
-        animation: scrollText 120s linear infinite; /* Aumentado de 60s a 120s */
+        animation: scrollText 180s linear infinite; /* Aumentado a 180s para más tiempo */
       }
 
       @keyframes scrollText {
         0% {
           top: 100%;
         }
-        5% { /* Añadimos una pausa al inicio */
+        5% {
           top: 100%;
         }
-        95% { /* Añadimos una pausa al final */
-          top: -200%;
+        90% { /* Ajustado para dar más tiempo de lectura */
+          top: -300%;
         }
         100% {
-          top: -400%; /* Ajustado de -100% a -200% para asegurar que todo el texto pase */
+          top: -300%;
         }
       }
 
@@ -256,7 +256,7 @@
         }
 
         .matrix-column-container {
-          height: 300px;
+          height: 400px; /* Mantenemos la altura original incluso en móviles */
         }
 
         .header {
@@ -289,7 +289,7 @@
         }
 
         .matrix-column-container {
-          height: 250px;
+          height: 400px; /* Mantenemos la altura para mejor lectura */
         }
 
         .video-placeholder {
@@ -607,15 +607,13 @@
               indicated characteristics of the user as: name and surname,
               gender, age, place of residence, studies, work, activity
               preferences, etc. It was also proceeded to use an anonymous
-              account for the logon in the IA of chatGPT, with which it was not
+              account for the login in the IA of chatGPT, with which it was not
               possible to establish a direct identification on the
               above-mentioned information through the personal digital history
               through the Google bots and the IA. The prompt just said "make me
               a weekly planning of my daily activities". Under these conditions,
               the AI was not only able to identify gender, but also the location
-              of residence to set the times of certain activities, for example
-              lunches and dinners in Spain are usually a little later than in
-              other countries. The video performance reproduces a selection of
+              of residence to set the times of certain activities. The video performance reproduces a selection of
               activities contemplated on any day of the week, according to the
               schedule set by the weekly calendar of the AI. In the video, a
               tracking effect (tracking) is applied to all the movement of the
@@ -629,7 +627,7 @@
               deepens users' vulnerability to digital privacy rights. Changing
               technologies also means changing habits and ways of acting,
               otherwise we just recreate an open space to be occupied by others
-              manipulating not only our time but also all the activities,
+              manipulating not only our time but also all activities,
               strong and banal, of everyday life.
             </p>
           </div>
@@ -814,4 +812,3 @@
     </script>
   </body>
 </html>
-
